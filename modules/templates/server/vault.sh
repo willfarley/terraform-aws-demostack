@@ -313,6 +313,13 @@ vault write pki/roles/consul-service generate_lease=true allowed_domains="servic
 
 vault write pki/issue/consul-service  common_name=nginx.service.consul  ttl=772h  &&
 
+
+} ||
+{
+  echo "--> pki demo already configured, moving on"
+}
+
+ echo "--> configure supersure vault policy"
 vault policy-write superuser - <<EOR
 path "*" { 
   capabilities = ["create", "read", "update", "delete", "list", "sudo"] 
@@ -320,9 +327,5 @@ path "*" {
 
 EOR
   
-} ||
-{
-  echo "--> pki demo already configured, moving on"
-}
  
 echo "==> Vault is done!"
