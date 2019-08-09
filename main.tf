@@ -11,7 +11,7 @@ terraform {
   }
 }
 
-#another quick test for TFE run on PR
+# yet another quick test for TFE run on PR
 
 // Workspace Data
 data "terraform_remote_state" "emea_se_playground_tls_root_certificate" {
