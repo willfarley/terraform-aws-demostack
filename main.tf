@@ -153,3 +153,13 @@ module "tertiarycluster" {
   nomad_gossip_key      = data.terraform_remote_state.emea_se_playground_tls_root_certificate.outputs.nomad_gossip_key
 }
 */
+
+
+
+
+
+
+
+
+
+
