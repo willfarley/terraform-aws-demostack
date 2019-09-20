@@ -34,6 +34,11 @@ client {
     "driver.raw_exec.enable" = "1"
      "docker.privileged.enabled" = "true"
   }
+
+  meta {
+    "type" = "worker",
+    "name" = "${node_name}"
+  }
 }
 
 tls {
@@ -47,9 +52,7 @@ tls {
   verify_server_hostname = false
 }
 
-meta {
-    "type" = "worker"
-  }
+
 
 vault {
   enabled   = true
@@ -101,6 +104,12 @@ LimitNOFILE=65536
 [Install]
 WantedBy=multi-user.target
 EOF
+
+echo "--> Installing CNI plugin"
+sudo mkdir -p /opt/cni/bin/
+wget -O cni.tgz ${cni_plugin_url} 
+sudo tar -xf cni.tgz -C /opt/cni/bin/
+
 
 echo "--> Starting nomad"
 sudo systemctl enable nomad

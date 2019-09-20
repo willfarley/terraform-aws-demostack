@@ -91,6 +91,14 @@ resource "aws_security_group" "demostack" {
       cidr_blocks = [ "${ingress.value}" ]
     }
   }
+#Demostack LDAP
+  ingress {
+    from_port   = 389
+    to_port     = 389
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 
 #Demostack HTTPS
   ingress {
@@ -100,7 +108,33 @@ resource "aws_security_group" "demostack" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  #Demostack Postgres
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+#Demostack pgadmin
+  ingress {
+    from_port   = 5050
+    to_port     = 5050
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+
+  #Demostack HTTPS
+  ingress {
+    from_port   = 27017
+    to_port     = 27017
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 #HTTP 
+
 #TODO - Remove when sslcerts are done
   ingress {
     from_port   = 80
@@ -108,10 +142,11 @@ resource "aws_security_group" "demostack" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
 #Consul and Vault ports
   ingress {
     from_port   = 8000
-    to_port     = 8999
+    to_port     = 9010
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -221,7 +256,7 @@ data "aws_iam_policy_document" "vault-server" {
       "logs:*",
       "ec2messages:*",
     ]
-      
+
     resources = ["*"]
   }
 

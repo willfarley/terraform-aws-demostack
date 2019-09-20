@@ -54,8 +54,7 @@ sudo tee /etc/consul.d/config.json > /dev/null <<EOF
    "ui": true,
  "connect":{
   "enabled": true,
-  "ca_provider":"consul"
-
+   "ca_provider":"consul"
       }
 }
 EOF
@@ -147,5 +146,17 @@ cache-size=0
 EOF
 sudo systemctl enable dnsmasq
 sudo systemctl restart dnsmasq
+
+echo "--> Writting default Mesh proxy configs"
+consul config write -<<EOF
+{
+  "Kind": "proxy-defaults",
+  "Name": "global",
+  "MeshGateway": {
+    "Mode": "local"
+  }
+}
+EOF
+
 
 echo "==> Consul is done!"

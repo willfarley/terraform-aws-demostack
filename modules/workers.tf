@@ -20,6 +20,7 @@ data "template_file" "workers" {
     me_ca   = var.ca_cert_pem
     me_cert = "${element(tls_locally_signed_cert.workers.*.cert_pem, count.index)}"
     me_key  = "${element(tls_private_key.workers.*.private_key_pem, count.index)}"
+    public_key = var.public_key
 
     # Consul
     consul_url            = var.consul_url
@@ -30,6 +31,7 @@ data "template_file" "workers" {
 
     # Nomad
     nomad_url      =  var.nomad_url
+    cni_plugin_url = var.cni_plugin_url
     run_nomad_jobs = var.run_nomad_jobs
 
     # Vault
