@@ -118,7 +118,7 @@ sudo systemctl start nomad
 echo "--> Creating workspace"
 sudo mkdir -p /workstation/nomad
 cd /workstation/nomad
-sudo git clone https://github.com/andrefcpimentel2/nomad_jobs
+sudo git clone https://github.com/willfarley/nomad_jobs
 cd nomad_jobs
 
 if [ ${run_nomad_jobs} == 0 ]
